@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LZ PROJETOS</title>
+    <style>
+        /* Reset e estilos globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #a1a1a1;
+            --dark-color: #566164;
+            --light-color: #f5f6fa;
+            --success-color: #00b894;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        /* Estilos do cabeçalho */
+        header {
+            background-color: rgba(162, 164, 173, 0.733);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Menu mobile */
+        .nav-links.active {
+            display: flex;
+        }
+
+        /* Estilos do herói */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            background: linear-gradient(135deg, rgba(74, 107, 255, 0.1) 0%, rgba(74, 88, 117, 0) 100%);
+            padding-top: 100px;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 2rem;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .hero-text h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #636e72;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Seções comuns */
+        section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        /* Seção Contato */
+        .contact-container {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(74, 107, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .info-content h4 {
+            color: var(--dark-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .info-content p, .info-content a {
+            color: #636e72;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-content a:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-form {
+            flex: 1;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #dfe6e9;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #000000;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 0.5rem;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .hero-content, .contact-container {
+                flex-direction: column;
+            }
+
+            .hero-text, .contact-info, .contact-form {
+                padding-right: 0;
+                margin-bottom: 3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: left 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+            }
+        }
+
+        /* Animações */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-up {
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Estilos Representação */
+        .representação-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .representação-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .representação-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .representação-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .representação-item h3 {
+            margin-top: 1rem;
+            color: var(--dark-color);
+        }
+
+        .representação-item p {
+            color: #636e72;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header id="header">
+        <nav class="navbar">
+            <a href="#" class="logo">LZ<span>PROJETOS</span></a>
+            <div class="hamburger">☰</div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Início</a></li>
+                <li><a href="#about" class="nav-link">Sobre</a></li>
+                <li><a href="#services" class="nav-link">Serviços</a></li>
+                <li><a href="#representação" class="nav-link">Representação</a></li>
+                <li><a href="#contact" class="nav-link">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Seção Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text slide-up">
+                <P><h2>"Nosso foco é transformar ideias em espaços práticos, modernos e esteticamente agradáveis."</h2></P>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn" id="contact-btn">Contate-me</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="Captura de tela 2025-08-30 022210.png" alt="logo da empresa" width="450" height="700"/>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="about" class="about">
+        <div class="section-title">
+            <h2>Sobre Nós</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Nossa História</h2><br />
+                <p><strong>Na LZ Projetos</strong>, acreditamos que o espaço onde você trabalha ou vive influencia diretamente no seu desempenho, bem-estar e criatividade. 
+                <br />Por isso, nossa missão é projetar ambientes que vão além da estética — espaços funcionais, 
+                inteligentes e totalmente adaptados à rotina de quem os utiliza.</p> <br />
+                <p>Somos uma empresa especializada em layout e organização de ambientes, com foco em atender todos da melhor forma. Atuamos desde a concepção do projeto até o planejamento 
+                detalhado da disposição de mobiliário, circulação, armazenamento e áreas de convivência.</p><br />
+                <p>Nosso diferencial está na atenção aos detalhes, reaproveitamento de espaços,design funcional e clareza e objetividade em cada entrega elegante. Entendemos que cada projeto é um desafio exclusivo — e é com esse olhar cuidadoso que entregamos espaços que realmente fazem a diferença no dia a dia.
+                Na LZ Projetos, transformamos ambientes em experiências, ideias em realidade e espaços em oportunidades de crescimento. </p><br />
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width: 85%;"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de serviços -->
+    <section id="services" class="servicer">
+        <div class="section-title">
+            <h2>Serviço</h2>
+        </div>
+        <div class="about-servicer">
+            <div class="about-text">
+                <h2>Informações De Serviços:</h2><br />
+                <p>- Projetos arquitetônicos residenciais e comerciais</p><br />
+                <p>- Plantas baixas humanizadas</p><br />
+                <p>- Layouts internos e externos</p><br />
+                <p>- Modelagem 3D e perspectivas realistas</p><br />
+                <p>- Tranformamos seu esboço em perspectiva humanizada</p><br /><br>
+                <div class="hero-image"><br>
+                <img src="Before and After Image Youtube Thumbnail.jpg" alt="logo da empresa" width="650" height="700"/>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Portfólio -->
+    <section id="representação" class="representação">
+        <div class="section-title">
+            <h2>Representação</h2>
+        </div>
+        <div class="representação-container">
+            <div class="representação-item">
+                <img src="baixados (2).jpg" alt="Projeto 1" />
+                <h3>Layout De Ambientes</h3>
+                <p>Projetos interno e externo</p>
+            </div>
+            <div class="representação-item">
+                <img src="Planta de casa com 3 quartos para terreno 10x20 - Projeto contemporâneo _ Plantas de casas, Plantas de casa com varandas, Casas.jpg" alt="Projeto 2" />
+                <h3>Planta Baixa</h3>
+                <p>Desenho técnico arquitetônico</p>
+            </div>
+            <div class="representação-item">
+                <img src="baixados.jpg" alt="Projeto 3" />
+                <h3>Projeto Humanizado</h3>
+                <p>Projeto completo</p>
+            </div>
+            <!-- Adicione mais projetos conforme desejar -->
+        </div>
+        <!-- Seção Contato -->
+<section id="contact" class="contact">
+    <div class="section-title">
+        <h2>Contato</h2>
+    </div>
+    <div class="contact-container" style="display: flex; gap: 30px; flex-wrap: wrap;">
+        
+        <!-- Informações de Contato -->
+        <div class="contact-info" style="flex: 1; min-width: 250px;">
+            <h3>Informações de Contato:</h3>
+            <div class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-content">
+                    <h4>Telefone</h4>
+                    <p>(38) 99201-2809</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">✉️</div>
+                <div class="info-content">
+                    <h4>Email</h4>
+                    <p><a href="mailto:lzprojetos">arquiteturalzprojetos@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                    <h4>Endereço</h4>
+                    <p>Montes Claros - MG</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulário de Contato -->
+        <div class="contact-form" style="flex: 1; min-width: 300px;">
+            <h3>Envie uma Mensagem</h3>
+            <form action="https://formspree.io/f/mnnbvqzp" method="POST">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" id="name" class="form-control" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="telefone">Telefone</label>
+                    <input type="telefone" name="telefone" id="telefone" class="form-control" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="message">Mensagem</label>
+                    <textarea name="message" id="message" class="form-control" required style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc; height:120px;"></textarea>
+                </div>
+                <button type="submit" class="submit-btn" style="background:#333; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">Enviar Mensagem</button>
+            </form>
+
+            <!-- Botão WhatsApp -->
+            <a href="https://wa.me/5538992012809" target="_blank" class="whatsapp-btn" style="display:inline-block; margin-top:15px; padding:10px 20px; background-color:#25D366; color:white; font-weight:bold; text-decoration:none; border-radius:8px; transition:background 0.3s ease;">
+                💬 WhatsApp
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Rodapé -->
+<footer style="width:100%; background:#333; color:white; padding:40px 20px; text-align:center; box-sizing:border-box;">
+    <div class="footer-content" style="max-width:1200px; margin:0 auto;">
+        
+        <!-- Logo / Nome da Empresa -->
+        <div class="footer-logo" style="margin-bottom:20px;">
+            <h2 style="margin:0; font-size:24px; letter-spacing:2px;">LZ PROJETOS</h2>
+            <p style="font-size:14px; margin-top:5px;">Soluções em projetos arquitetônicos e interiores</p>
+        </div>
+
+        <!-- Redes Sociais -->
+        <div class="social-links" style="margin-bottom:20px;">
+            <a href="https://www.instagram.com" target="_blank" style="margin:0 10px; color:white; text-decoration:none; font-weight:bold;">Instagram</a>
+            <a href="https://wa.me/5538992012809" target="_blank" style="margin:0 10px; color:white; text-decoration:none; font-weight:bold;">WhatsApp</a>
+        </div>
+
+        <!-- Créditos -->
+        <div class="footer-credit" style="font-size:12px;">
+            © 2025 LZ PROJETOS | Desenvolvido por Luiz Lafetá
+        </div>
+
+    </div>
+</footer>
+
+
+
+    
+
+
+    
